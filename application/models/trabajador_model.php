@@ -33,8 +33,8 @@ class trabajador_model extends CI_Model {
 		$this->db->select('trabajadores.nombres');
 		$this->db->select('trabajadores.apellidos');
 		$this->db->select('trabajadores.dni');
-		$this->db->select('trabajadores.area');
-		$this->db->select('areas.nombre ');
+		$this->db->select('trabajadores.areas_id');
+		
 		$this->db->from('trabajadores');
 		if($tipodoc_id != null && $tipodoc_id != 0){
 			$this->db->where('id', $tipodoc_id);
@@ -43,7 +43,7 @@ class trabajador_model extends CI_Model {
 			$this->db->like('codigo', $search_string);
 		}
 
-		$this->db->join('areas', 'trabajadores.area = areas.id', 'left');
+		$this->db->join('areas', 'trabajadores.areas_id = areas.id', 'left');
 
 		$this->db->group_by('trabajadores.id');
 

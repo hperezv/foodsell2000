@@ -5,7 +5,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i>Ventas</a>
+                        <a class="active-menu" href="<?php echo base_url() ?>admin/ventas"><i class="fa fa-dashboard"></i>Ventas</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-sitemap"></i>Administracion<span class="fa arrow"></span></a>
