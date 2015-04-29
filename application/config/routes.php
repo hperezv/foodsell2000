@@ -63,6 +63,11 @@ $route['admin/tipotrab/update/(:any)'] = 'admin_tipotraba/update/$1';
 $route['admin/tipotrab/delete/(:any)'] = 'admin_tipotraba/delete/$1';
 $route['admin/tipotrab/(:any)'] = 'admin_tipotraba/index/$1'; //$1 = page number
 
+$route['admin/productos'] = 'admin_productos/index';
+$route['admin/productos/add'] = 'admin_productos/add';
+$route['admin/productos/delete/(:any)'] = 'admin_productos/delete/$1';
+$route['admin/productos/update'] = 'admin_productos/update';
+$route['admin/productos/update/(:any)'] = 'admin_productos/update/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
