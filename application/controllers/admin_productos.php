@@ -122,9 +122,9 @@ class Admin_productos extends CI_Controller {
             {
     
                 $data_to_store = array(
-                    'nombre' => $this->input->post('codigo'),
-                    'precio' => $this->input->post('nombres'),
-                    'cantidad' => $this->input->post('apellidos')
+                    'nombre' => $this->input->post('nombre'),
+                    'precio' => $this->input->post('precio'),
+                    'cantidad' => $this->input->post('cantidad')
                 );
                 //if the insert has returned true then we show the flash message
                 if($this->productos_model->update_productos($id, $data_to_store) == TRUE){
@@ -136,7 +136,7 @@ class Admin_productos extends CI_Controller {
             }//validation run
 
         }
-
+        $data['producto'] = $this->productos_model->get_producto_by_id($id);
         $data['main_content'] = 'admin/productos/edit';
         $this->load->view('includes/template', $data);            
 

@@ -53,7 +53,7 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Nombre</label>
                     <div class="controls">
-                        <input class="form-control" id="" name="nombre" value="<?php echo $product[0]['nombre']; ?>" >
+                        <input class="form-control" id="" name="nombre" value="<?php echo $producto[0]['nombre']; ?>" >
                         <!--<span class="help-inline">Woohoo!</span>-->
                     </div>
                 </div>
@@ -61,14 +61,14 @@
                 <div class="control-group">
                     <label for="inputError" class="control-label">Precio</label>
                     <div class="controls">
-                        <input class="form-control" id="" name="precio" value="<?php echo $product[0]['precio']; ?>">
+                        <input class="form-control" id="" name="precio" value="<?php echo $producto[0]['precio']; ?>">
                         <!--<span class="help-inline">Apellios</span>-->
                     </div>
                 </div>          
                 <div class="control-group">
                     <label for="inputError" class="control-label">Cantidad</label>
                     <div class="controls">
-                        <input class="form-control" id="" name="cantidad" value="<?php echo $product[0]['cantidad'];?>">
+                        <input class="form-control" id="" name="cantidad" value="<?php echo $producto[0]['cantidad'];?>">
                         <!--<span class="help-inline">Apellidos</span>-->
                     </div>
                 </div>

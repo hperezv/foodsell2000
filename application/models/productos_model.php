@@ -75,5 +75,18 @@ class productos_model extends CI_Model {
             return false;
         }
     }
+    /**
+    * Get product by his is
+    * @param int $product_id 
+    * @return array
+    */
+    public function get_producto_by_id($id)
+    {
+        $this->db->select('*');
+        $this->db->from('productos');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->result_array(); 
+    }
 }
 ?>	
