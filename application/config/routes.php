@@ -75,5 +75,8 @@ $route['admin/ventas/delete/(:any)'] = 'admin_ventas/delete/$1';
 $route['admin/ventas/update'] = 'admin_ventas/update';
 $route['admin/ventas/update/(:any)'] = 'admin_ventas/update/$1';
 
+$route['admin/reportes'] = 'admin_reportes/index';
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

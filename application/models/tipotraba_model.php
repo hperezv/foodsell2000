@@ -15,7 +15,7 @@ class Tipotraba_model extends CI_Model {
     * @param int $product_id 
     * @return array
     */
-    public function get_manufacture_by_id($id)
+    public function get_tipodetraba_by_id($id)
     {
 		$this->db->select('*');
 		$this->db->from('areas');
@@ -34,7 +34,7 @@ class Tipotraba_model extends CI_Model {
     * @param int $limit_end
     * @return array
     */
-    public function get_manufacturers($search_string=null, $order=null, $order_type='Asc', $limit_start=null, $limit_end=null)
+    public function get_tipodetraba($search_string=null, $order=null, $order_type='Asc', $limit_start=null, $limit_end=null)
     {
 	    
 		$this->db->select('*');
@@ -70,7 +70,7 @@ class Tipotraba_model extends CI_Model {
     * @param int $order
     * @return int
     */
-    function count_manufacturers($search_string=null, $order=null)
+    function count_tipodetraba($search_string=null, $order=null)
     {
 		$this->db->select('*');
 		$this->db->from('areas');
@@ -91,18 +91,18 @@ class Tipotraba_model extends CI_Model {
     * @param array $data - associative array with data to store
     * @return boolean 
     */
-    function store_manufacture($data)
+    function store_tipodetraba($data)
     {
 		$insert = $this->db->insert('areas', $data);
 	    return $insert;
 	}
 
     /**
-    * Update manufacture
+    * Update tipodetraba
     * @param array $data - associative array with data to store
     * @return boolean
     */
-    function update_manufacture($id, $data)
+    function update_tipodetraba($id, $data)
     {
 		$this->db->where('id', $id);
 		$this->db->update('areas', $data);
@@ -117,11 +117,11 @@ class Tipotraba_model extends CI_Model {
 	}
 
     /**
-    * Delete manufacturer
+    * Delete tipotraba
     * @param int $id - manufacture id
     * @return boolean
     */
-	function delete_manufacture($id){
+	function delete_tipodetraba($id){
 		$this->db->where('id', $id);
 		$this->db->delete('areas'); 
 	}

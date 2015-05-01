@@ -109,7 +109,7 @@ class Admin_trabajador extends CI_Controller {
             $this->session->set_userdata($filter_session_data);
 
             //fetch manufacturers data into arrays
-            $data['tipotrabajador'] = $this->tipotraba_model->get_manufacturers();
+            $data['tipotrabajador'] = $this->tipotraba_model->get_tipodetraba();
 
             $data['count_trabaj']= $this->trabajador_model->count_trabaj($tipodoc_id, $search_string, $order);
             $config['total_rows'] = $data['count_trabaj'];
@@ -144,7 +144,7 @@ class Admin_trabajador extends CI_Controller {
             $data['order'] = 'id';
 
             //fetch sql data into arrays
-            $data['tipotrabajador'] = $this->tipotraba_model->get_manufacturers();
+            $data['tipotrabajador'] = $this->tipotraba_model->get_tipodetraba();
             $data['count_trabaj'] = $this->trabajador_model->count_trabaj();
             $data['trabajador'] = $this->trabajador_model->get_trabaj('', '', '', $order_type, $config['per_page'],$limit_end);        
             $config['total_rows'] = $data['count_trabaj'];
@@ -171,7 +171,7 @@ class Admin_trabajador extends CI_Controller {
             $this->form_validation->set_rules('nombres', 'nombres', 'required');
             $this->form_validation->set_rules('apellidos', 'apellidos', 'required');
             $this->form_validation->set_rules('dni', 'dni', 'required');
-            $this->form_validation->set_rules('area', 'area', 'required');
+            $this->form_validation->set_rules('areas_id', 'areas_id', 'required');
             
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
@@ -183,7 +183,7 @@ class Admin_trabajador extends CI_Controller {
                     'nombres' => $this->input->post('nombres'),
                     'apellidos' => $this->input->post('apellidos'),
                     'dni' => $this->input->post('dni'),          
-                    'area' => $this->input->post('area')
+                    'areas_id' => $this->input->post('areas_id')
                 );
                 //if the insert has returned true then we show the flash message
                 if($this->trabajador_model->store_trabaj($data_to_store)){
@@ -196,7 +196,7 @@ class Admin_trabajador extends CI_Controller {
 
         }
         //fetch manufactures data to populate the select field
-        $data['tipotrabajador'] = $this->tipotraba_model->get_manufacturers();
+        $data['tipotrabajador'] = $this->tipotraba_model->get_tipodetraba();
         //load the view
         $data['main_content'] = 'admin/trabajador/add';
         $this->load->view('includes/template', $data);  
@@ -220,7 +220,7 @@ class Admin_trabajador extends CI_Controller {
             $this->form_validation->set_rules('nombres', 'nombres', 'required');
             $this->form_validation->set_rules('apellidos', 'apellidos', 'required');
             $this->form_validation->set_rules('dni', 'dni', 'required');
-            $this->form_validation->set_rules('area', 'area', 'required');
+            $this->form_validation->set_rules('areas_id', 'areas_id', 'required');
            
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
             //if the form has passed through the validation
@@ -232,7 +232,7 @@ class Admin_trabajador extends CI_Controller {
                     'nombres' => $this->input->post('nombres'),
                     'apellidos' => $this->input->post('apellidos'),
                     'dni' => $this->input->post('dni'),          
-                    'area' => $this->input->post('area')
+                    'areas_id' => $this->input->post('areas_id')
                 );
                 //if the insert has returned true then we show the flash message
                 if($this->trabajador_model->update_trabaj($id, $data_to_store) == TRUE){
@@ -252,7 +252,7 @@ class Admin_trabajador extends CI_Controller {
         //trabajador data 
         $data['trabajador'] = $this->trabajador_model->get_trabaj_by_id($id);
         //fetch Tipe trabajador data to populate the select field
-        $data['tipotrabajador'] = $this->tipotraba_model->get_manufacturers();
+        $data['tipotrabajador'] = $this->tipotraba_model->get_tipodetraba();
         //load the view
         $data['main_content'] = 'admin/trabajador/edit';
         $this->load->view('includes/template', $data);            

@@ -25,7 +25,7 @@ class trabajador_model extends CI_Model {
     }
 
   
-    public function get_trabaj($tipodoc_id=null, $search_string=null, $order=null, $order_type='Asc', $limit_start, $limit_end)
+    public function get_trabaj($tipotrabajador_id=null, $search_string=null, $order=null, $order_type='Asc', $limit_start, $limit_end)
     {
 	    
 		$this->db->select('trabajadores.id');
@@ -33,11 +33,11 @@ class trabajador_model extends CI_Model {
 		$this->db->select('trabajadores.nombres');
 		$this->db->select('trabajadores.apellidos');
 		$this->db->select('trabajadores.dni');
-		$this->db->select('trabajadores.areas_id');
+		$this->db->select('areas.nombre  as tipotrabajador_name');
 		
 		$this->db->from('trabajadores');
-		if($tipodoc_id != null && $tipodoc_id != 0){
-			$this->db->where('id', $tipodoc_id);
+		if($tipotrabajador_id != null && $tipotrabajador_id != 0){
+			$this->db->where('areas_id', $tipotrabajador_id);
 		}
 		if($search_string){
 			$this->db->like('codigo', $search_string);
@@ -70,12 +70,12 @@ class trabajador_model extends CI_Model {
     * @param int $order
     * @return int
     */
-    function count_trabaj($tipodoc_id=null, $search_string=null, $order=null)
+    function count_trabaj($tipotrabajador_id=null, $search_string=null, $order=null)
     {
 		$this->db->select('*');
 		$this->db->from('trabajadores');
-		if($tipodoc_id != null && $tipodoc_id != 0){
-			$this->db->where('area', $tipodoc_id);
+		if($tipotrabajador_id != null && $tipotrabajador_id != 0){
+			$this->db->where('area', $tipotrabajador_id);
 		}
 		if($search_string){
 			$this->db->like('codigo', $search_string);

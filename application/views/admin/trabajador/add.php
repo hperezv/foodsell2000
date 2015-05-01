@@ -48,10 +48,10 @@
       <?php
       //form data
       $attributes = array('class' => 'form-horizontal', 'id' => '');
-      $options_manufacture = array('' => "Select");
-      foreach ($manufactures as $row)
+      $options_tipotrabajador = array('' => "Select");
+      foreach ($tipotrabajador as $row)
       {
-        $options_manufacture[$row['id']] = $row['nombre'];
+        $options_tipotrabajador[$row['id']] = $row['nombre'];
       }
 
       //form validation
@@ -99,7 +99,7 @@
             echo '<div class="controls">';
               //echo form_dropdown('tipodoc_id', $options_manufacture, '', 'class="span2"');
               
-              echo form_dropdown('area', $options_manufacture, set_value('area'), 'class="span2"');
+              echo form_dropdown('areas_id', $options_tipotrabajador, set_value('areas_id'), 'class="span2"');
 
             echo '</div>';
           echo '</div">';

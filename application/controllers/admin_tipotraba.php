@@ -109,28 +109,28 @@ class Admin_tipotraba extends CI_Controller {
             }
             
             //fetch sql data into arrays
-            $data['count_trabaj']= $this->tipotraba_model->count_manufacturers($search_string, $order);
+            $data['count_trabaj']= $this->tipotraba_model->count_tipodetraba($search_string, $order);
             $config['total_rows'] = $data['count_trabaj'];
 
             //fetch sql data into arrays
             if($search_string){
                 if($order){
-                    $data['manufacturers'] = $this->tipotraba_model->get_manufacturers($search_string, $order, $order_type, $config['per_page'],$limit_end);        
+                    $data['tipodetraba'] = $this->tipotraba_model->get_tipodetraba($search_string, $order, $order_type, $config['per_page'],$limit_end);        
                 }else{
-                    $data['manufacturers'] = $this->tipotraba_model->get_manufacturers($search_string, '', $order_type, $config['per_page'],$limit_end);           
+                    $data['tipodetraba'] = $this->tipotraba_model->get_tipodetraba($search_string, '', $order_type, $config['per_page'],$limit_end);           
                 }
             }else{
                 if($order){
-                    $data['manufacturers'] = $this->tipotraba_model->get_manufacturers('', $order, $order_type, $config['per_page'],$limit_end);        
+                    $data['tipodetraba'] = $this->tipotraba_model->get_tipodetraba('', $order, $order_type, $config['per_page'],$limit_end);        
                 }else{
-                    $data['manufacturers'] = $this->tipotraba_model->get_manufacturers('', '', $order_type, $config['per_page'],$limit_end);        
+                    $data['tipodetraba'] = $this->tipotraba_model->get_tipodetraba('', '', $order_type, $config['per_page'],$limit_end);        
                 }
             }
 
         }else{
 
             //clean filter data inside section
-            $filter_session_data['manufacture_selected'] = null;
+            $filter_session_data['tipodetraba_selected'] = null;
             $filter_session_data['search_string_selected'] = null;
             $filter_session_data['order'] = null;
             $filter_session_data['order_type'] = null;
@@ -141,8 +141,8 @@ class Admin_tipotraba extends CI_Controller {
             $data['order'] = 'id';
 
             //fetch sql data into arrays
-            $data['count_trabaj']= $this->tipotraba_model->count_manufacturers();
-            $data['manufacturers'] = $this->tipotraba_model->get_manufacturers('', '', $order_type, $config['per_page'],$limit_end);        
+            $data['count_trabaj']= $this->tipotraba_model->count_tipodetraba();
+            $data['tipodetraba'] = $this->tipotraba_model->get_tipodetraba('', '', $order_type, $config['per_page'],$limit_end);        
             $config['total_rows'] = $data['count_trabaj'];
 
         }//!isset($search_string) && !isset($order)
@@ -174,7 +174,7 @@ class Admin_tipotraba extends CI_Controller {
                     'nombre' => $this->input->post('nombre'),
                 );
                 //if the insert has returned true then we show the flash message
-                if($this->tipotraba_model->store_manufacture($data_to_store)){
+                if($this->tipotraba_model->store_tipodetraba($data_to_store)){
                     $data['flash_message'] = TRUE; 
                 }else{
                     $data['flash_message'] = FALSE; 
@@ -226,7 +226,7 @@ class Admin_tipotraba extends CI_Controller {
         //the code below wel reload the current data
 
         //product data 
-        $data['manufacture'] = $this->tipotraba_model->get_manufacture_by_id($id);
+        $data['tipodetraba'] = $this->tipotraba_model->get_tipodetraba_by_id($id);
         //load the view
         $data['main_content'] = 'admin/tipotraba/edit';
         $this->load->view('includes/template', $data);            
@@ -241,7 +241,7 @@ class Admin_tipotraba extends CI_Controller {
     {
         //product id 
         $id = $this->uri->segment(4);
-        $this->tipotraba_model->delete_manufacture($id);
+        $this->tipotraba_model->delete_tipodetraba($id);
         redirect('admin/tipotraba');
     }//edit
 
