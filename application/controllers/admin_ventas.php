@@ -10,7 +10,7 @@ class Admin_ventas extends CI_Controller {
         parent::__construct();
         $this->load->model('trabajador_model');
         $this->load->model('productos_model');
-        //$this->load->model('ventas_model');        
+        $this->load->model('ventas_model');        
 
         if(!$this->session->userdata('is_logged_in')){
             redirect('admin/login');
@@ -44,14 +44,21 @@ class Admin_ventas extends CI_Controller {
             $limit_end = 0;
         }
         
+        if ($this->input->post('mysubmit') === 'Nuevo') 
+            $this->add();
+        
         //$data['ventas'] = $this->ventas_model->get_ventas('', $cadenaBusqueda, '','', $config['per_page'],$limit_end);
         $data['search_string'] = $cadenaBusqueda;
         //initializate the panination helper 
         //$this->pagination->initialize($config);   
 
         //load the view        
-        $data['trabajadores'] = $this->trabajador_model->get_trabaj(null,null,'apellidos','Asc',1,9999999);
-        $data['productos'] = $this->productos_model->get_productos(null,null,'nombre','Asc',1,9999999);        
+        $data['trabajadores'] = $this->trabajador_model->get_trabaj(null,null,'apellidos','Asc',9999999,1);
+        $data['productos'] = $this->productos_model->get_productos(null,null,'nombre','Asc',9999999,1); 
+        
+        
+        $data['ventas'] = $this->ventas_model->get_ventas('', $cadenaBusqueda, 'id','Desc', $config['per_page'],$limit_end);
+        
         $data['main_content'] = 'admin/ventas/list';
         $this->load->view('includes/template', $data);  
 
@@ -60,26 +67,30 @@ class Admin_ventas extends CI_Controller {
     {
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
-        {
-
+        {            
             //form validation
             $this->form_validation->set_rules('trabajadores_id', 'Trabajador', 'required');
             $this->form_validation->set_rules('productos_id', 'Producto', 'required');
             $this->form_validation->set_rules('cantidad', 'Cantidad', 'required');
+            
+            
             
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
+                $producto = $this->productos_model->get_producto_by_id($this->input->post('productos_id'));
                 $data_to_store = array(
-                    'nombre'   => $this->input->post('nombre'),
-                    'precio'   => $this->input->post('precio'),
+                    'productos_id'   => $this->input->post('productos_id'),
+                    'trabajadores_id'   => $this->input->post('trabajadores_id'),                    
                     'cantidad' => $this->input->post('cantidad'),
-                    'acuenta'  => $this->input->post('acuenta')  
+                    'acuenta'  => $this->input->post('acuenta'),  
+                    'total'  => $producto[0]['precio']*$this->input->post('cantidad'),
+                    'precio_unitario'  => $producto[0]['precio']
                 );
                 //if the insert has returned true then we show the flash message
-                if($this->productos_model->new_ventas($data_to_store)){
+                if($this->ventas_model->new_ventas($data_to_store)){
                     $data['flash_message'] = TRUE; 
                 }else{
                     $data['flash_message'] = FALSE; 
@@ -88,8 +99,8 @@ class Admin_ventas extends CI_Controller {
         }
         
         //load the view
-        $data['main_content'] = 'admin/ventas/add';
-        $this->load->view('includes/template', $data);  
+        //$data['main_content'] = 'admin/ventas/list';
+        //$this->load->view('includes/template', $data);  
     }
     /**
     * Delete product by his id
@@ -99,48 +110,54 @@ class Admin_ventas extends CI_Controller {
     {
         //product id 
         $id = $this->uri->segment(4);
-        $this->productos_model->delete_productos($id);
-        redirect('admin/productos');
+        $this->ventas_model->delete_ventas($id);
+        redirect('admin/ventas');
     }//delete
     /**
     * Update item by his id
     * @return void
     */
     public function update()
-    {
-        //product id 
+    {        
         $id = $this->uri->segment(4);
   
         //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             //form validation            
-            $this->form_validation->set_rules('nombre', 'nombre', 'required');
-            $this->form_validation->set_rules('precio', 'precio', 'required');
-            $this->form_validation->set_rules('cantidad', 'cantidad', 'required');            
+            $this->form_validation->set_rules('trabajadores_id', 'Trabajador', 'required');
+            $this->form_validation->set_rules('productos_id', 'Productos', 'required');
+            $this->form_validation->set_rules('cantidad', 'Cantidad', 'required');
            
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
             //if the form has passed through the validation
             if ($this->form_validation->run())
             {
-    
+                $producto = $this->productos_model->get_producto_by_id($this->input->post('productos_id'));
                 $data_to_store = array(
-                    'nombre' => $this->input->post('nombre'),
-                    'precio' => $this->input->post('precio'),
-                    'cantidad' => $this->input->post('cantidad')
+                    'trabajadores_id' => $this->input->post('trabajadores_id'),
+                    'productos_id' => $this->input->post('productos_id'),
+                    'cantidad' => $this->input->post('cantidad'),
+                    'acuenta' => $this->input->post('acuenta'),
+                    'total'  => $producto[0]['precio']*$this->input->post('cantidad'),
+                    'precio_unitario'  => $producto[0]['precio']
                 );
                 //if the insert has returned true then we show the flash message
-                if($this->productos_model->update_productos($id, $data_to_store) == TRUE){
+                if($this->ventas_model->update_ventas($id, $data_to_store) == TRUE){
                     $this->session->set_flashdata('flash_message', 'updated');
                 }else{
                     $this->session->set_flashdata('flash_message', 'not_updated');
                 }
-                redirect('admin/productos/update/'.$id.'');
+                redirect('admin/ventas/update/'.$id.'');
             }//validation run
 
         }
-        $data['producto'] = $this->productos_model->get_producto_by_id($id);
-        $data['main_content'] = 'admin/productos/edit';
+        
+        $data['trabajadores'] = $this->trabajador_model->get_trabaj(null,null,'apellidos','Asc',9999999,1);
+        $data['productos'] = $this->productos_model->get_productos(null,null,'nombre','Asc',9999999,1); 
+        
+        $data['venta'] = $this->ventas_model->get_venta_by_id($id);
+        $data['main_content'] = 'admin/ventas/edit';
         $this->load->view('includes/template', $data);            
 
     }//update

@@ -23,7 +23,7 @@
             
     foreach ($trabajadores as $row)
     {
-      $options_trabajador[$row['id']] = $row['codigo'].' '.$row['apellidos'].' '.$row['nombres'].' '.$row['dni'];
+      $options_trabajador[$row['id']] = $row['codigo'].' '.$row['apellidos'].' '.$row['nombres'].' '.$row['dni'];      
     }
     //Productos
     $options_productos = array(0 => "Producto");
@@ -35,8 +35,8 @@
     
     $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
     echo form_open('admin/ventas', $attributes);
-    echo form_dropdown('trabajadores_id', $options_trabajador, $trabajador_selected, 'class="span2"');
-    echo form_dropdown('productos_id', $options_producto, $producto_selected, 'class="span2"');
+    echo form_dropdown('trabajadores_id', $options_trabajador, 0, 'class="span2"');
+    echo form_dropdown('productos_id', $options_producto, 0, 'class="span2"');
     echo form_input('cantidad', '', 'placeholder="Cantidad" style="width: 170px; height: 26px;"');
     echo form_input('acuenta', '', 'placeholder="A Cuenta" style="width: 170px; height: 26px;"');
     echo form_label('Buscar:', 'search_string');
@@ -74,23 +74,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                    /*
-                                    foreach($productos as $row)
-                                    {
+                                <?php                                    
+                                    foreach($ventas as $row)
+                                    {                                        
                                         echo '<tr class="gradeU">';
                                         echo '<td>'.$row['id'].'</td>';
-                                        echo '<td>'.$row['nombre'].'</td>';
-                                        echo '<td>'.$row['precio'].'</td>';
-                                        echo '<td>'.$row['cantidad'].'</td>';                                            
+                                        echo '<td>'.$row['fecha_hora'].'</td>';
+                                        echo '<td>'.$row['area'].'</td>';
+                                        echo '<td>'.$row['trabajador'].'</td>';
+                                        echo '<td>'.$row['dni'].'</td>';
+                                        echo '<td>'.$row['producto'].'</td>';
+                                        echo '<td>'.$row['total'].'</td>';
+                                        echo '<td>'.$row['acuenta'].'</td>';
+                                        echo '<td>'.($row['total'] - $row['acuenta']).'</td>';
                                         echo '<td class="crud-actions">
-                                                <a href="'.site_url("admin").'/productos/update/'.$row['id'].'"class="btn btn-primary btn-sm fa fa-edit">Editar</a>  
-                                                <a href="'.site_url("admin").'/productos/delete/'.$row['id'].'"class="btn btn-danger btn-sm fa fa-pencil">Borrar</a>
+                                                <a href="'.site_url("admin").'/ventas/update/'.$row['id'].'"class="btn btn-primary btn-sm fa fa-edit">Editar</a>  
+                                                <a href="'.site_url("admin").'/ventas/delete/'.$row['id'].'"class="btn btn-danger btn-sm fa fa-pencil">Borrar</a>
                                               </td>';
                                         echo '</tr>';
-                                    } 
-                                     * 
-                                     */                                    
+                                    }                                      
                                 ?>
                             </tbody>
                         </table>
