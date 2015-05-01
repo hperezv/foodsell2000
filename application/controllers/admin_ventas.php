@@ -1,3 +1,4 @@
+
 <?php
 class Admin_ventas extends CI_Controller {
  

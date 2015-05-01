@@ -1,3 +1,4 @@
+
 <?php
 class Admin_productos extends CI_Controller {
  

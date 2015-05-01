@@ -1,3 +1,4 @@
+
 <?php
 class productos_model extends CI_Model {
  
@@ -89,4 +90,3 @@ class productos_model extends CI_Model {
         return $query->result_array(); 
     }
 }
-?>	
