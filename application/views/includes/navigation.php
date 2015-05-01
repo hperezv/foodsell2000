@@ -3,9 +3,9 @@
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
-
+        
                     <li>
-                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i>Ventas</a>
+                        <a class="active-menu" href="<?php echo base_url() ?>admin/ventas"><i class="fa fa-dashboard"></i>Ventas</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-sitemap"></i>Administracion<span class="fa arrow"></span></a>
@@ -34,10 +34,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Productos</a>
+                        <a href="<?php echo base_url() ?>admin/productos"><i class="fa fa-bar-chart-o"></i> Productos</a>
                     </li>
                     <li>
-                        <a href="tab-panel.html"><i class="fa fa-qrcode"></i> Reportes</a>
+                        <a href="<?php echo base_url() ?>admin/reportes"><i class="fa fa-qrcode"></i> Reportes</a>
                     </li>
                     
                     <li>

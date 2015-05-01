@@ -26,10 +26,10 @@
             $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
            
             //save the columns names in a array that we will use as filter         
-            $options_manufacturers = array();    
-            foreach ($manufacturers as $array) {
+            $options_tipodetraba = array();    
+            foreach ($tipodetraba as $array) {
               foreach ($array as $key => $value) {
-                $options_manufacturers[$key] = $key;
+                $options_tipodetraba[$key] = $key;
               }
               break;
             }
@@ -40,7 +40,7 @@
               echo form_input('search_string', $search_string_selected);
 
               echo form_label('Order by:', 'order');
-              echo form_dropdown('order', $options_manufacturers, $order, 'class="span2"');
+              echo form_dropdown('order', $options_tipodetraba, $order, 'class="span2"');
 
               $data_submit = array('name' => 'mysubmit', 'class' => 'btn btn-primary', 'value' => 'Buscar');
 
@@ -64,7 +64,7 @@
             </thead>
             <tbody>
               <?php
-              foreach($manufacturers as $row)
+              foreach($tipodetraba as $row)
               {
                 echo '<tr>';
                 echo '<td>'.$row['id'].'</td>';

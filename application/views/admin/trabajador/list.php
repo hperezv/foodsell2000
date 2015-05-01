@@ -91,7 +91,7 @@ height: 26px;"');
                                             echo '<td>'.$row['nombres'].'</td>';
                                             echo '<td>'.$row['apellidos'].'</td>';
                                             echo '<td>'.$row['dni'].'</td>';
-                                            echo '<td>'.$row['area'].'</td>';
+                                            echo '<td>'.$row['tipotrabajador_name'].'</td>';
                                             echo '<td class="crud-actions">
                                                   <a href="'.site_url("admin").'/trabajador/update/'.$row['id'].'"class="btn btn-primary btn-sm fa fa-edit">Editar</a>  
                                                   <a href="'.site_url("admin").'/trabajador/delete/'.$row['id'].'"class="btn btn-danger btn-sm fa fa-pencil">Borrar</a>

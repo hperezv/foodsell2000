@@ -47,10 +47,10 @@
       <?php
       //form data
       $attributes = array('class' => 'form-horizontal', 'id' => '');
-      $options_manufacture = array('' => "Select");
-      foreach ($manufactures as $row)
+      $options_tipotrabajador = array('' => "Select");
+      foreach ($tipotrabajador as $row)
       {
-        $options_manufacture[$row['id']] = $row['nombre'];
+        $options_tipotrabajador[$row['id']] = $row['nombre'];
       }
 
       //form validation
@@ -62,7 +62,7 @@
           <div class="control-group">
             <label for="inputError" class="control-label">Código</label>
             <div class="controls">
-              <input class="form-control" id="" name="codigo" value="<?php echo $product[0]['codigo']; ?>" >
+              <input class="form-control" id="" name="codigo" value="<?php echo $trabajador[0]['codigo']; ?>" >
               <!--<span class="help-inline">Woohoo!</span>-->
             </div>
           </div>
@@ -70,21 +70,21 @@
           <div class="control-group">
             <label for="inputError" class="control-label">Nombres</label>
             <div class="controls">
-              <input class="form-control" id="" name="nombres" value="<?php echo $product[0]['nombres']; ?>">
+              <input class="form-control" id="" name="nombres" value="<?php echo $trabajador[0]['nombres']; ?>">
               <!--<span class="help-inline">Apellios</span>-->
             </div>
           </div>          
           <div class="control-group">
             <label for="inputError" class="control-label">Apellidos</label>
             <div class="controls">
-              <input class="form-control" id="" name="apellidos" value="<?php echo $product[0]['apellidos'];?>">
+              <input class="form-control" id="" name="apellidos" value="<?php echo $trabajador[0]['apellidos'];?>">
               <!--<span class="help-inline">Apellidos</span>-->
             </div>
           </div>
           <div class="control-group">
             <label for="inputError" class="control-label">DNI</label>
             <div class="controls">
-              <input class="form-control" name="dni" value="<?php echo $product[0]['dni']; ?>">
+              <input class="form-control" name="dni" value="<?php echo $trabajador[0]['dni']; ?>">
               <!--<span class="help-inline">OOps</span>-->
             </div>
           </div>
@@ -94,7 +94,7 @@
             echo '<div class="controls">';
               //echo form_dropdown('tipodoc_id', $options_manufacture, '', 'class="span2"');
               
-              echo form_dropdown('area', $options_manufacture, $product[0]['area'], 'class="span2"');
+              echo form_dropdown('areas_id', $options_tipotrabajador, $trabajador[0]['areas_id'], 'class="span2"');
 
             echo '</div>';
           echo '</div">';

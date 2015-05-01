@@ -58,7 +58,7 @@
           <div class="control-group">
             <label for="inputError" class="control-label">Description</label>
             <div class="controls">
-              <input class="form-control" id="" name="nombre" value="<?php echo $manufacture[0]['nombre']; ?>" >
+              <input class="form-control" id="" name="nombre" value="<?php echo $tipodetraba[0]['nombre']; ?>" >
               <!--<span class="help-inline">Woohoo!</span>-->
             </div>
             <p></p>
