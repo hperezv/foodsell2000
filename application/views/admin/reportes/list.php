@@ -34,25 +34,17 @@
             
             <label for="inputError" class="control-label">Fecha Final</label>
             <div class="controls">
-              <input type="date" id="fecha_final" name="fecha_final" class="input">    
+              <input type="date" id="fecha_fin" name="fecha_fin" class="input">    
             </div>
           </div>
          
           <div class="form-actions">
-            <button class="btn btn-success" type="submit" value = "deudas">Deudas Excel</button>
-            <button class="btn" type="reset">Cancel</button>
+            <button class="btn btn-success" type="submit" value = "deudas">Exportar a Excel</button>            
           </div>
         </fieldset>
         
 
       <?php echo form_close(); ?>
 
-     </div>
-
-
-
-    <div style="text-align:center;">
-    <button type="button" class="btn btn-success" title="Exportar a Excel" onclick="window.location='<?php echo base_url()?>admin/reportes/exporta';">Exportar a Excel</button>
-    <button type="button" class="btn btn-success" title="Exportar a Excel" onclick="window.location='<?php echo base_url()?>admin/reportes/exporta-deudas';">Deudas Excel</button>
-    <script> 
+     </div>    
     

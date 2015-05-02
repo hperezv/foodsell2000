@@ -1,6 +1,5 @@
 <?php
 class trabajador_model extends CI_Model {
- 
     /**
     * Responsable for auto load the database
     * @return void
@@ -17,50 +16,50 @@ class trabajador_model extends CI_Model {
     */
     public function get_trabaj_by_id($id)
     {
-		$this->db->select('*');
-		$this->db->from('trabajadores');
-		$this->db->where('id', $id);
-		$query = $this->db->get();
-		return $query->result_array(); 
+        $this->db->select('*');
+        $this->db->from('trabajadores');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->result_array(); 
     }
 
   
     public function get_trabaj($tipotrabajador_id=null, $search_string=null, $order=null, $order_type='Asc', $limit_start, $limit_end)
     {
 	    
-		$this->db->select('trabajadores.id');
-		$this->db->select('trabajadores.codigo');
-		$this->db->select('trabajadores.nombres');
-		$this->db->select('trabajadores.apellidos');
-		$this->db->select('trabajadores.dni');
-		$this->db->select('areas.nombre  as tipotrabajador_name');
-		
-		$this->db->from('trabajadores');
-		if($tipotrabajador_id != null && $tipotrabajador_id != 0){
-			$this->db->where('areas_id', $tipotrabajador_id);
-		}
-		if($search_string){
-			$this->db->like('nombres', $search_string);
-		}
+        $this->db->select('trabajadores.id');
+        $this->db->select('trabajadores.codigo');
+        $this->db->select('trabajadores.nombres');
+        $this->db->select('trabajadores.apellidos');
+        $this->db->select('trabajadores.dni');
+        $this->db->select('areas.nombre  as tipotrabajador_name');
 
-		$this->db->join('areas', 'trabajadores.areas_id = areas.id', 'left');
+        $this->db->from('trabajadores');
+        if($tipotrabajador_id != null && $tipotrabajador_id != 0){
+                $this->db->where('areas_id', $tipotrabajador_id);
+        }
+        if($search_string){
+                $this->db->like('nombres', $search_string);
+        }
 
-		$this->db->group_by('trabajadores.id');
+        $this->db->join('areas', 'trabajadores.areas_id = areas.id', 'left');
 
-		if($order){
-			$this->db->order_by($order, $order_type);
-		}else{
-		    $this->db->order_by('id', $order_type);
-		}
+        $this->db->group_by('trabajadores.id');
 
-
-		$this->db->limit($limit_start, $limit_end);
-		//$this->db->limit('4', '4');
+        if($order){
+                $this->db->order_by($order, $order_type);
+        }else{
+            $this->db->order_by('id', $order_type);
+        }
 
 
-		$query = $this->db->get();
-		
-		return $query->result_array(); 	
+        $this->db->limit($limit_start, $limit_end);
+        //$this->db->limit('4', '4');
+
+
+        $query = $this->db->get();
+
+        return $query->result_array(); 	
     }
 
     /**
@@ -72,21 +71,21 @@ class trabajador_model extends CI_Model {
     */
     function count_trabaj($tipotrabajador_id=null, $search_string=null, $order=null)
     {
-		$this->db->select('*');
-		$this->db->from('trabajadores');
-		if($tipotrabajador_id != null && $tipotrabajador_id != 0){
-			$this->db->where('area', $tipotrabajador_id);
-		}
-		if($search_string){
-			$this->db->like('codigo', $search_string);
-		}
-		if($order){
-			$this->db->order_by($order, 'Asc');
-		}else{
-		    $this->db->order_by('id', 'Asc');
-		}
-		$query = $this->db->get();
-		return $query->num_rows();        
+        $this->db->select('*');
+        $this->db->from('trabajadores');
+        if($tipotrabajador_id != null && $tipotrabajador_id != 0){
+                $this->db->where('area', $tipotrabajador_id);
+        }
+        if($search_string){
+                $this->db->like('codigo', $search_string);
+        }
+        if($order){
+                $this->db->order_by($order, 'Asc');
+        }else{
+            $this->db->order_by('id', 'Asc');
+        }
+        $query = $this->db->get();
+        return $query->num_rows();        
     }
 
     /**
@@ -96,9 +95,9 @@ class trabajador_model extends CI_Model {
     */
     function store_trabaj($data)
     {
-		$insert = $this->db->insert('trabajadores', $data);
-	    return $insert;
-	}
+        $insert = $this->db->insert('trabajadores', $data);
+        return $insert;
+    }
 
     /**
     * Update product
@@ -107,27 +106,33 @@ class trabajador_model extends CI_Model {
     */
     function update_trabaj($id, $data)
     {
-		$this->db->where('id', $id);
-		$this->db->update('trabajadores', $data);
-		$report = array();
-		$report['error'] = $this->db->_error_number();
-		$report['message'] = $this->db->_error_message();
-		if($report !== 0){
-			return true;
-		}else{
-			return false;
-		}
-	}
+        $this->db->where('id', $id);
+        $this->db->update('trabajadores', $data);
+        $report = array();
+        $report['error'] = $this->db->_error_number();
+        $report['message'] = $this->db->_error_message();
+        if($report !== 0){
+                return true;
+        }else{
+                return false;
+        }
+    }
 
     /**
     * Delete product
     * @param int $id - product id
     * @return boolean
     */
-	function delete_trabaj($id){
-		$this->db->where('id', $id);
-		$this->db->delete('trabajadores'); 
-	}
+    function delete_trabaj($id){
+        $this->db->where('id', $id);
+        $this->db->delete('trabajadores'); 
+    }
+    
+    /**
+    * Delete product
+    * @param int $id - product id
+    * @return boolean
+    */
     function getTrabajadoresByArea($areasId){
         $this->db->select('*');        
         $this->db->from('trabajadores');
