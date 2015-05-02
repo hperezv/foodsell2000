@@ -90,7 +90,9 @@ class Admin_ventas extends CI_Controller {
                     'precio_unitario'  => $producto[0]['precio']
                 );
                 //if the insert has returned true then we show the flash message
-                if($this->ventas_model->new_ventas($data_to_store)){
+                if($this->ventas_model->new_ventas($data_to_store)){                    
+                    $producto[0]['cantidad'] = $producto[0]['cantidad'] - $this->input->post('cantidad');                    
+                    $this->productos_model->update_productos($this->input->post('productos_id'), $producto[0]);                    
                     $data['flash_message'] = TRUE; 
                 }else{
                     $data['flash_message'] = FALSE; 
@@ -142,12 +144,17 @@ class Admin_ventas extends CI_Controller {
                     'total'  => $producto[0]['precio']*$this->input->post('cantidad'),
                     'precio_unitario'  => $producto[0]['precio']
                 );
+                $venta = $this->ventas_model->get_venta_by_id($id);
+                $tmpCantidad = $venta[0]['cantidad']  - $this->input->post('cantidad');
                 //if the insert has returned true then we show the flash message
-                if($this->ventas_model->update_ventas($id, $data_to_store) == TRUE){
+                if($this->ventas_model->update_ventas($id, $data_to_store) == TRUE){                    
+                    $producto[0]['cantidad'] = $producto[0]['cantidad'] + $tmpCantidad;
+                    $this->productos_model->update_productos($this->input->post('productos_id'), $producto[0]);
                     $this->session->set_flashdata('flash_message', 'updated');
                 }else{
                     $this->session->set_flashdata('flash_message', 'not_updated');
                 }
+                
                 redirect('admin/ventas/update/'.$id.'');
             }//validation run
 

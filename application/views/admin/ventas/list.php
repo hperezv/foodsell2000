@@ -69,6 +69,8 @@
                                     <th>Cliente</th>
                                     <th>DNI</th>
                                     <th>Producto</th>
+                                    <th>P Unitario</th>
+                                    <th>Cantidad</th>
                                     <th>Total</th>
                                     <th>A cuenta</th>
                                     <th>Saldo</th>
@@ -86,6 +88,8 @@
                                         echo '<td>'.$row['trabajador'].'</td>';
                                         echo '<td>'.$row['dni'].'</td>';
                                         echo '<td>'.$row['producto'].'</td>';
+                                        echo '<td>'.$row['precio_unitario'].'</td>';
+                                        echo '<td>'.$row['cantidad'].'</td>';
                                         echo '<td>'.$row['total'].'</td>';
                                         echo '<td>'.$row['acuenta'].'</td>';
                                         echo '<td>'.($row['total'] - $row['acuenta']).'</td>';
