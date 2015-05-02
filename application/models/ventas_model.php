@@ -90,5 +90,21 @@ class ventas_model extends CI_Model {
         $query = $this->db->get();
         return $query->result_array(); 
     }
+    public function getVentaDiaria($trabajadoresId, $fecha)
+    {	
+        $this->db->select('trabajadores_id, sum(total) as total, sum(if(productos_id=1,total,0)) as total_almuerzo', FALSE);
+        $this->db->from('ventas');
+        $this->db->where('trabajadores_id', $trabajadoresId);
+        $this->db->like('fecha_hora', $fecha);
+        $this->db->group_by('trabajadores_id');
+        //$this->db->having('trabajadores.id', $trabajadoresId);
+        
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        //print_r($query->result_array());
+        //exit;
+
+        return $query->result_array(); 	
+    }
 }
 ?>	

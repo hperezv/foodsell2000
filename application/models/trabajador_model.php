@@ -128,6 +128,12 @@ class trabajador_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete('trabajadores'); 
 	}
- 
+    function getTrabajadoresByArea($areasId){
+        $this->db->select('*');        
+        $this->db->from('trabajadores');
+        $this->db->where('areas_id', $areasId);
+        $query = $this->db->get();
+        return $query->result_array(); 	
+    }
 }
 ?>	

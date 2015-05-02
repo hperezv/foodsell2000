@@ -77,6 +77,7 @@ $route['admin/ventas/update/(:any)'] = 'admin_ventas/update/$1';
 
 $route['admin/reportes'] = 'admin_reportes/index';
 $route['admin/reportes/exporta'] = 'admin_reportes/excel';
+$route['admin/reportes/procesar'] = 'admin_reportes/procesar';
 
 
 /* End of file routes.php */
