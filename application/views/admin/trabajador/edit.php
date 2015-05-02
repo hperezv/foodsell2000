@@ -90,7 +90,7 @@
           </div>
           <?php
           echo '<div class="control-group">';
-            echo '<label for="tipodoc_id" class="control-label">Tipo Doc</label>';
+            echo '<label for="tipodoc_id" class="control-label"> Area c</label>';
             echo '<div class="controls">';
               //echo form_dropdown('tipodoc_id', $options_manufacture, '', 'class="span2"');
               

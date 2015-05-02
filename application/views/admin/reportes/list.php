@@ -16,6 +16,41 @@
         </h2>
     </div>
 
-    <h2>Listado de trabajadores</h2>
+    <div class="well">
+        
+   <?php echo form_open('admin/documents/add', $attributes);
+      ?>
+        
+         <div class="control-group">
+            
+            <label for="inputError" class="control-label">Fecha inicio</label>
+            <div class="controls">
+              <input type="date" id="fecha_inio" name="fecha_ini" class="input"  value="<?php set_value('fecha'); ?>" >    
+            </div>
+          </div> 
+
+          <div class="control-group">
+            
+            <label for="inputError" class="control-label">Fecha Final</label>
+            <div class="controls">
+              <input type="date" id="fecha_final" name="fecha" class="input"  value="<?php set_value('fecha'); ?>" >    
+            </div>
+          </div>
+         
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Grabar</button>
+            <button class="btn" type="reset">Cancel</button>
+          </div>
+        </fieldset>
+        <input type="date" name="fecha">
+
+      <?php echo form_close(); ?>
+
+     </div>
+
+
+
     <div style="text-align:center;">
-    <button type="button" class="btn btn-success" title="Exportar a Excel" onclick="window.location='<?php echo base_url()?>admin/reportes';">Exportar a Excel</button>
+    <button type="button" class="btn btn-success" title="Exportar a Excel" onclick="window.location='<?php echo base_url()?>admin/reportes/exporta';">Exportar a Excel</button>
+    <script> 
+    

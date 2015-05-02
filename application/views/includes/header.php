@@ -6,7 +6,7 @@
     <title>Free Bootstrap Admin Template : Dream</title>
     <!-- Bootstrap Styles-->
     <link href="<?php echo base_url()?>public/css/bootstrap.css" rel="stylesheet" />
-
+    
      <!-- FontAwesome Styles-->
     <link href="<?php echo base_url() ?>public/css/font-awesome.css" rel="stylesheet" />
      <!-- Morris Chart Styles-->
@@ -17,6 +17,7 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
      <!-- TABLE STYLES-->
     <link href="<?php echo base_url() ?>public/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    
 </head>
 <body>
     <div id="wrapper">

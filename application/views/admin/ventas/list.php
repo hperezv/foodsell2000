@@ -35,12 +35,14 @@
     
     $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
     echo form_open('admin/ventas', $attributes);
-    echo form_dropdown('trabajadores_id', $options_trabajador, 0, 'class="span2"');
-    echo form_dropdown('productos_id', $options_producto, 0, 'class="span2"');
-    echo form_input('cantidad', '', 'placeholder="Cantidad" style="width: 170px; height: 26px;"');
-    echo form_input('acuenta', '', 'placeholder="A Cuenta" style="width: 170px; height: 26px;"');
+    echo form_dropdown('trabajadores_id', $options_trabajador, 0, 'class="form-control input-sm"');
+    echo '<p>';
+    echo form_dropdown('productos_id', $options_producto, 0, 'class="form-control input-sm"');
+    
+    echo form_input('cantidad', '','class="form-control input-sm" placeholder="Cantidad" ', 'style="width: 170px; height: 26px;"');
+    echo form_input('acuenta', '', 'class="form-control input-sm" placeholder="A Cuenta"','style="width: 170px; height: 26px;"');
     echo form_label('Buscar:', 'search_string');
-    echo form_input('search_string', $search_string, 'style="width: 170px; height: 26px;"');
+    echo form_input('search_string', $search_string,'class="form-control input-sm"', 'style="width: 170px; height: 26px;"');
     $data_submit = array('name' => 'mysubmit', 'class' => 'btn btn-primary', 'value' => 'Buscar');
     echo form_submit($data_submit);
     $data_submit = array('name' => 'mysubmit', 'class' => 'btn btn-primary', 'value' => 'Nuevo');

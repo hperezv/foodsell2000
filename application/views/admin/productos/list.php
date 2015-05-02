@@ -21,7 +21,8 @@
     $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
     echo form_open('admin/productos', $attributes);
     echo form_label('Buscar:', 'search_string');
-    echo form_input('search_string', $search_string, 'style="width: 170px; height: 26px;"');
+    echo form_input('search_string', $search_string, 'class="form-control"','style="width: 170px; height: 26px;"');
+
     $data_submit = array('name' => 'mysubmit', 'class' => 'btn btn-primary', 'value' => 'Buscar');
     echo form_submit($data_submit);
     ?>

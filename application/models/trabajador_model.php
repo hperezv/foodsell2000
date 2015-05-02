@@ -40,7 +40,7 @@ class trabajador_model extends CI_Model {
 			$this->db->where('areas_id', $tipotrabajador_id);
 		}
 		if($search_string){
-			$this->db->like('codigo', $search_string);
+			$this->db->like('nombres', $search_string);
 		}
 
 		$this->db->join('areas', 'trabajadores.areas_id = areas.id', 'left');
