@@ -85,7 +85,7 @@
                                     {                                        
                                         echo '<tr class="gradeU">';
                                         echo '<td>'.$row['id'].'</td>';
-                                        echo '<td>'.$row['fecha_hora'].'</td>';
+                                        echo '<td>'.$row['fecha_hora_reporte'].'</td>';
                                         echo '<td>'.$row['area'].'</td>';
                                         echo '<td>'.$row['trabajador'].'</td>';
                                         echo '<td>'.$row['dni'].'</td>';

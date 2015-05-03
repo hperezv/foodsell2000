@@ -88,12 +88,12 @@ class Admin_reportes extends CI_Controller {
                                 if (count($ventaDiaria)>0)
                                 {
                                     $monto_diario = $ventaDiaria[0]['total'];
-                                    if ($ventaDiaria[0]['total_almuerzo']>0)
-                                        $monto_diario_almuerzo = $area['bono']; 
+                                    //if ($ventaDiaria[0]['total_almuerzo']>0)
+                                    //    $monto_diario_almuerzo = $area['bono']; 
 
                                     if ($indexReporte == 1){
                                         $monto_diario=$area['bono'];
-                                        $monto_diario_almuerzo = 0;
+                                    //    $monto_diario_almuerzo = 0;
                                     }
                                 }
                                 $subTotal = $monto_diario - $monto_diario_almuerzo;
