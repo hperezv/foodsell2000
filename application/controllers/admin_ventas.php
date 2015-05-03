@@ -72,7 +72,7 @@ class Admin_ventas extends CI_Controller {
             $this->form_validation->set_rules('trabajadores_id', 'Trabajador', 'required');
             $this->form_validation->set_rules('productos_id', 'Producto', 'required');
             $this->form_validation->set_rules('cantidad', 'Cantidad', 'required');
-            
+            $this->form_validation->set_rules('fecha_hora_reporte', 'Fecha Reporte', 'required');
             
             
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
@@ -87,7 +87,8 @@ class Admin_ventas extends CI_Controller {
                     'cantidad' => $this->input->post('cantidad'),
                     'acuenta'  => $this->input->post('acuenta'),  
                     'total'  => $producto[0]['precio']*$this->input->post('cantidad'),
-                    'precio_unitario'  => $producto[0]['precio']
+                    'precio_unitario'  => $producto[0]['precio'],
+                    'fecha_hora_reporte' => $this->input->post('fecha_hora_reporte')
                 );
                 //if the insert has returned true then we show the flash message
                 if($this->ventas_model->new_ventas($data_to_store)){                    
@@ -142,7 +143,8 @@ class Admin_ventas extends CI_Controller {
                     'cantidad' => $this->input->post('cantidad'),
                     'acuenta' => $this->input->post('acuenta'),
                     'total'  => $producto[0]['precio']*$this->input->post('cantidad'),
-                    'precio_unitario'  => $producto[0]['precio']
+                    'precio_unitario'  => $producto[0]['precio'],
+                    'fecha_hora_reporte' => $this->input->post('fecha_hora_reporte')
                 );
                 $venta = $this->ventas_model->get_venta_by_id($id);
                 $tmpCantidad = $venta[0]['cantidad']  - $this->input->post('cantidad');

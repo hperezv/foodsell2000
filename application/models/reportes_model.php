@@ -32,7 +32,7 @@ class Reportes_model extends CI_Model {
         $this->db->select('trabajadores_id, sum(total) - sum(acuenta) as total, sum(if(productos_id=1,total,0)) as total_almuerzo', FALSE);
         $this->db->from('ventas');
         $this->db->where('trabajadores_id', $trabajadoresId);
-        $this->db->like('fecha_hora', $fecha);
+        $this->db->like('fecha_hora_reporte', $fecha);
         $this->db->group_by('trabajadores_id');
         //$this->db->having('trabajadores.id', $trabajadoresId);
         

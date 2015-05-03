@@ -81,6 +81,13 @@
                         echo form_dropdown('productos_id', $options_producto, $venta[0]['productos_id'], 'class="span2"');
                         ?>
                     </div>
+                </div>
+                <div class="control-group">
+                    <label for="inputError" class="control-label">Fecha Reporte</label>
+                    <div class="controls"> 
+                        <?php $fecha_reporte = substr($venta[0]['fecha_hora_reporte'],0,4).'-'.substr($venta[0]['fecha_hora_reporte'],5,2).'-'.substr($venta[0]['fecha_hora_reporte'],8,2);?>
+                        <input type="date" id="fecha_hora_reporte" name="fecha_hora_reporte" class="input" value="<?php echo date($fecha_reporte)?>">                            
+                    </div>
                 </div>          
                 <div class="control-group">
                     <label for="inputError" class="control-label">Total</label>
