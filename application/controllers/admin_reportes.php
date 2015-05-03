@@ -76,6 +76,9 @@ class Admin_reportes extends CI_Controller {
                             $sheet->setCellValueByColumnAndRow(2, $numeroTrabajador, $trabajador['apellidos']);
                             $numeroDia = 3;
                             $tmpTotal = 0;
+                            
+                            $listaMontos = array();
+                            
                             for ($fechaIndex = $fechaInicio; $fechaIndex<=$fechaFin; $fechaIndex+=86400){
                                 $ventaDiaria = $this->reportes_model->getVentaDiaria($trabajador['id'], date("Y-m-d", $fechaIndex));
 
@@ -99,7 +102,10 @@ class Admin_reportes extends CI_Controller {
                                 $numeroDia++;
                             }
                             $sheet->setCellValueByColumnAndRow($numeroDia, $numeroTrabajador, $tmpTotal);
-                            $numeroTrabajador++;
+                            if ($tmpTotal > 0)
+                                $numeroTrabajador++;
+                            else
+                                $sheet->removeRow($numeroTrabajador);                            
                         }
                     }
                 }
