@@ -43,10 +43,18 @@ class Admin_ventas extends CI_Controller {
         if ($limit_end < 0){
             $limit_end = 0;
         }
-        
-        if ($this->input->post('mysubmit') === 'Nuevo') 
+        $defaultProducto='';
+        if ($this->input->post('mysubmit') === 'Nuevo') {
+            $defaultProducto = $this->input->post('productos_id');
             $this->add();
+        }
         
+        if ($this->input->post('mysubmit') === 'Filtrar') {
+            $data['ventas'] = $this->ventas_model->get_ventas_by_trabajador($this->input->post('trabajadores_id'), $config['per_page'], $limit_end);
+        }else{
+            $data['search_string'] = $cadenaBusqueda;
+            $data['ventas'] = $this->ventas_model->get_ventas('', $cadenaBusqueda, 'id','Desc', $config['per_page'],$limit_end);
+        }
         //$data['ventas'] = $this->ventas_model->get_ventas('', $cadenaBusqueda, '','', $config['per_page'],$limit_end);
         $data['search_string'] = $cadenaBusqueda;
         //initializate the panination helper 
@@ -55,10 +63,8 @@ class Admin_ventas extends CI_Controller {
         //load the view        
         $data['trabajadores'] = $this->trabajador_model->get_trabaj(null,null,'apellidos','Asc',9999999,1);
         $data['productos'] = $this->productos_model->get_productos(null,null,'nombre','Asc',9999999,1); 
-        
-        
-        $data['ventas'] = $this->ventas_model->get_ventas('', $cadenaBusqueda, 'id','Desc', $config['per_page'],$limit_end);
-        
+        $data['producto_default'] = $defaultProducto;
+                
         $data['main_content'] = 'admin/ventas/list';
         $this->load->view('includes/template', $data);  
 

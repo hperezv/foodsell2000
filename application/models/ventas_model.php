@@ -42,7 +42,29 @@ class ventas_model extends CI_Model {
         //exit;
 
         return $query->result_array(); 	
-    } 
+    }
+    
+    public function get_ventas_by_trabajador($trabajadorId, $limit_start, $limit_end)
+    {	
+        $this->db->select('ventas.*, trabajadores.dni, concat(trabajadores.apellidos,", ",trabajadores.nombres) as trabajador, areas.nombre as area, productos.nombre as producto', FALSE);
+        $this->db->from('ventas');
+        $this->db->where('trabajadores.id', $trabajadorId);
+        $this->db->order_by('id', 'Desc');
+
+        $this->db->join('productos', 'ventas.productos_id = productos.id', 'left');
+        $this->db->join('trabajadores', 'ventas.trabajadores_id = trabajadores.id', 'left');
+        $this->db->join('areas', 'trabajadores.areas_id = areas.id', 'left');
+        
+
+        $this->db->limit($limit_start, $limit_end);
+
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        //print_r($query->result_array());
+        //exit;
+
+        return $query->result_array(); 	
+    }
     /**
     * Store the new item into the database
     * @param array $data - associative array with data to store

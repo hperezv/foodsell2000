@@ -4,7 +4,7 @@ class Admin_reportes extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //$this->load->model('areas_model');
+        $this->load->model('areas_model');
         //$this->load->model('trabajador_model');
         //$this->load->model('ventas_model');
         $this->load->model('reportes_model');
@@ -44,19 +44,21 @@ class Admin_reportes extends CI_Controller {
                 $areas=$this->reportes_model->getAreas();
                 $fechaInicio = strtotime($this->input->post('fecha_inicio'));
                 $fechaFin = strtotime($this->input->post('fecha_fin'));
+                
+                $pestanha = array('Obreros', 'Administrativos');
 
-                foreach ($areas as $area) {
+                //foreach ($areas as $area) {
+                for($indexArea=0; $indexArea<2; $indexArea++){    
                     for ($indexReporte=1; $indexReporte<=2; $indexReporte++)
                     {
                         $positionInExcel = 0;
                         $this->phpexcel->createSheet($positionInExcel); //Loque mencionaste
                         $this->phpexcel->setActiveSheetIndex(0); //Seleccionar la pestaña deseada
-                        $this->phpexcel->getActiveSheet()->setTitle($area['nombre'].$indexReporte); //Establecer nombre 
+                        $this->phpexcel->getActiveSheet()->setTitle($pestanha[$indexArea].$indexReporte); //Establecer nombre 
                         $sheet=$this->phpexcel->getActiveSheet();
                         //
                         //$trabajadores=$this->trabajador_model->getTrabajadoresByArea($area['id']);
-                        $trabajadores=$this->reportes_model->getTrabajadoresByArea($area['id']);            
-
+                        
                         $sheet->setCellValueByColumnAndRow(0, 1, "CODIGO");
                         $sheet->setCellValueByColumnAndRow(1, 1, "NOMBRES");
                         $sheet->setCellValueByColumnAndRow(2, 1, "APELLIDOS");
@@ -69,47 +71,51 @@ class Admin_reportes extends CI_Controller {
                         $sheet->setCellValueByColumnAndRow($numeroDia, 1, "TOTAL");
 
                         $numeroTrabajador = 2;
-
-                        foreach ($trabajadores as $trabajador){                
-                            $sheet->setCellValueByColumnAndRow(0, $numeroTrabajador, $trabajador['codigo']);
-                            $sheet->setCellValueByColumnAndRow(1, $numeroTrabajador, $trabajador['nombres']);
-                            $sheet->setCellValueByColumnAndRow(2, $numeroTrabajador, $trabajador['apellidos']);
-                            $numeroDia = 3;
-                            $tmpTotal = 0;
+                        for($indexGR=1; $indexGR<=$indexArea+1; $indexGR++){
+                            $area = $this->areas_model->getAreaById($indexArea+$indexGR);                        
+                            $trabajadores=$this->reportes_model->getTrabajadoresByArea($area['id']);            
                             
-                            $listaMontos = array();
-                            
-                            for ($fechaIndex = $fechaInicio; $fechaIndex<=$fechaFin; $fechaIndex+=86400){
-                                $ventaDiaria = $this->reportes_model->getVentaDiaria($trabajador['id'], date("Y-m-d", $fechaIndex));
+                            foreach ($trabajadores as $trabajador){                
+                                $sheet->setCellValueByColumnAndRow(0, $numeroTrabajador, $trabajador['codigo']);
+                                $sheet->setCellValueByColumnAndRow(1, $numeroTrabajador, $trabajador['nombres']);
+                                $sheet->setCellValueByColumnAndRow(2, $numeroTrabajador, $trabajador['apellidos']);
+                                $numeroDia = 3;
+                                $tmpTotal = 0;
 
-                                $monto_diario = 0;                                                
-                                $monto_diario_almuerzo = 0;
+                                $listaMontos = array();
 
-                                if (count($ventaDiaria)>0)
-                                {
-                                    $monto_diario = $ventaDiaria[0]['total'];
-                                    //if ($ventaDiaria[0]['total_almuerzo']>0)
-                                    //    $monto_diario_almuerzo = $area['bono']; 
+                                for ($fechaIndex = $fechaInicio; $fechaIndex<=$fechaFin; $fechaIndex+=86400){
+                                    $ventaDiaria = $this->reportes_model->getVentaDiaria($trabajador['id'], date("Y-m-d", $fechaIndex));
 
-                                    if ($indexReporte == 1){
-                                        $monto_diario=$area['bono'];
-                                    //    $monto_diario_almuerzo = 0;
+                                    $monto_diario = 0;                                                
+                                    $monto_diario_almuerzo = 0;
+
+                                    if (count($ventaDiaria)>0)
+                                    {
+                                        $monto_diario = $ventaDiaria[0]['total'];
+                                        //if ($ventaDiaria[0]['total_almuerzo']>0)
+                                        //    $monto_diario_almuerzo = $area['bono']; 
+
+                                        if ($indexReporte == 1){
+                                            $monto_diario=$area['bono'];
+                                        //    $monto_diario_almuerzo = 0;
+                                        }
                                     }
+                                    $subTotal = $monto_diario - $monto_diario_almuerzo;
+                                    $tmpTotal+=($subTotal);
+                                    $sheet->setCellValueByColumnAndRow($numeroDia, $numeroTrabajador, $subTotal);
+                                    $numeroDia++;
                                 }
-                                $subTotal = $monto_diario - $monto_diario_almuerzo;
-                                $tmpTotal+=($subTotal);
-                                $sheet->setCellValueByColumnAndRow($numeroDia, $numeroTrabajador, $subTotal);
-                                $numeroDia++;
+                                $sheet->setCellValueByColumnAndRow($numeroDia, $numeroTrabajador, $tmpTotal);
+                                if ($tmpTotal > 0)
+                                    $numeroTrabajador++;
+                                else
+                                    $sheet->removeRow($numeroTrabajador);                            
                             }
-                            $sheet->setCellValueByColumnAndRow($numeroDia, $numeroTrabajador, $tmpTotal);
-                            if ($tmpTotal > 0)
-                                $numeroTrabajador++;
-                            else
-                                $sheet->removeRow($numeroTrabajador);                            
                         }
                     }
                 }
-
+                
                 //salida
                 header("Content-Type: application/vnd.ms-excel");
                 $nombre="Reporte de Usuarios_".date("Y-m-d H:i:s");
@@ -119,6 +125,7 @@ class Admin_reportes extends CI_Controller {
                 $writer=PHPExcel_IOFactory::createWriter($this->phpexcel,"Excel5");
                 $writer->save("php://output");		
                 exit;
+                
             }
         }
         

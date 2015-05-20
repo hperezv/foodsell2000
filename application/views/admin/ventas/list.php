@@ -37,17 +37,19 @@
     echo form_open('admin/ventas', $attributes);
     echo form_dropdown('trabajadores_id', $options_trabajador, 0, 'class="form-control input-sm"');
     echo '<p>';
-    echo form_dropdown('productos_id', $options_producto, 0, 'class="form-control input-sm"');
+    echo form_dropdown('productos_id', $options_producto, $producto_default, 'class="form-control input-sm"');
     ?>
-    <input type="date" id="fecha_hora_reporte" name="fecha_hora_reporte" class="input" value="<?php echo date('Y-m-d')?>">    
+    <input type="date" id="fecha_hora_reporte" name="fecha_hora_reporte" class="form-control input-sm" value="<?php echo date('Y-m-d')?>">    
     <?php
-    echo form_input('cantidad', '','class="form-control input-sm" placeholder="Cantidad" ', 'style="width: 170px; height: 26px;"');
+    echo form_input('cantidad', 1,'class="form-control input-sm" placeholder="Cantidad" ', 'style="width: 170px; height: 26px;"');
     echo form_input('acuenta', '', 'class="form-control input-sm" placeholder="A Cuenta"','style="width: 170px; height: 26px;"');
     //echo form_label('Buscar:', 'search_string');
     //echo form_input('search_string', $search_string,'class="form-control input-sm"', 'style="width: 170px; height: 26px;"');
     //$data_submit = array('name' => 'mysubmit', 'class' => 'btn btn-primary', 'value' => 'Buscar');
     //echo form_submit($data_submit);
     $data_submit = array('name' => 'mysubmit', 'class' => 'btn btn-primary', 'value' => 'Nuevo');
+    echo form_submit($data_submit);
+    $data_submit = array('name' => 'mysubmit', 'class' => 'btn btn-primary', 'value' => 'Filtrar');
     echo form_submit($data_submit);
     ?>
     
